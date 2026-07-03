@@ -19,10 +19,7 @@ use crate::core::{
 };
 
 const REQUEST_TIMEOUT: Duration = Duration::from_secs(30);
-<<<<<<< HEAD
 const MAX_CONCURRENT_FETCHES: usize = 16;
-=======
->>>>>>> 6bef142 (feat: fetch feed updates in parallel)
 
 #[derive(Debug)]
 pub enum FeedUpdateStatus {
