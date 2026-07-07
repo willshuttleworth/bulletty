@@ -176,7 +176,8 @@ impl LibraryData {
     }
 
     pub fn feed_needs_update(feed: &FeedItem) -> bool {
-        Utc::now().signed_duration_since(feed.lastupdated) >= Duration::minutes(5)
+        // Utc::now().signed_duration_since(feed.lastupdated) >= Duration::minutes(5)
+        true
     }
 
     pub fn apply_feed_update(
@@ -185,6 +186,7 @@ impl LibraryData {
         feed: &FeedItem,
         mut feedentries: Vec<FeedEntry>,
     ) -> color_eyre::Result<()> {
+        // TODO: does this need updated? what is a slug anyway?
         feedentries.iter_mut().for_each(|e| {
             let entrypath = self
                 .path
@@ -240,11 +242,13 @@ impl LibraryData {
             }
         }
 
+        self.mark_feed_checked(feed)
+    }
+
+    pub fn mark_feed_checked(&self, feed: &FeedItem) -> color_eyre::Result<()> {
         let mut feed = feed.clone();
         feed.lastupdated = Utc::now();
-        self.feed_create(&feed)?;
-
-        Ok(())
+        self.feed_create(&feed)
     }
 
     pub fn save_feed_entry(&self, entry: &FeedEntry) -> color_eyre::Result<()> {
