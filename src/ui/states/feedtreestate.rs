@@ -98,6 +98,7 @@ impl FeedTreeState {
                         .get(&(c.clone(), s.clone()))
                         .copied()
                         .unwrap_or(0);
+                    // TODO: FOUND IT
                     if unread > 0 {
                         ListItem::new(Line::from(Span::styled(
                             format!(" \u{f09e}  ({unread}) {t}"),
